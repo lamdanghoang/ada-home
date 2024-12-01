@@ -16,7 +16,7 @@ const generatePropertyData = () => {
     images: [
       `/house1.jpg?height=400&width=600`,
       `/house2.jpg?height=400&width=600`,
-      `/house3.jpg?height=400&width=600`
+      `/house3.png?height=400&width=600`
     ],
     title: `${titles[Math.floor(Math.random() * titles.length)]} ${index + 1}`,
     location: locations[Math.floor(Math.random() * locations.length)],
