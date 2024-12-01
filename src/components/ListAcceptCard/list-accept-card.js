@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import AcceptCard from '@/components/AcceptCard/accept-card';
 
-
 // Function to generate random property data (same as previous implementation)
 const generatePropertyData = () => {
-
   const locations = ['Dubai, UAE', 'Abu Dhabi, UAE', 'Cairo, Egypt', 'Beirut, Lebanon', 'Doha, Qatar'];
   const titles = [
-    'Luxury Apartment', 'Modern Loft', 'Beachfront Villa', 
+    'Luxury Apartment', 'Modern Loft', 'Beachfront Villa',
     'Urban Townhouse', 'Suburban Residence', 'Penthouse Suite'
   ];
 
@@ -27,29 +25,30 @@ const generatePropertyData = () => {
 
 const ListAcceptCard = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const propertiesPerPage = 4;
+  const propertiesPerPage = 2; // Adjust properties per page for mobile
   const [properties, setProperties] = useState([]);
-  useEffect(()=>{
+
+  useEffect(() => {
     setProperties(generatePropertyData());
-  },[]) 
+  }, []);
+
   async function handleApprove(id) {
-    "use server"
+    "use server";
     // Implement your approval logic here
-    console.log(`Approved item ${id}`)
+    console.log(`Approved item ${id}`);
   }
 
   async function handleDeny(id) {
-    "use server"
+    "use server";
     // Implement your denial logic here
-    console.log(`Denied item ${id}`)
+    console.log(`Denied item ${id}`);
   }
-
 
   // Calculate pagination
   const indexOfLastProperty = currentPage * propertiesPerPage;
   const indexOfFirstProperty = indexOfLastProperty - propertiesPerPage;
   const currentProperties = properties.slice(
-    indexOfFirstProperty, 
+    indexOfFirstProperty,
     indexOfLastProperty
   );
 
@@ -61,10 +60,11 @@ const ListAcceptCard = () => {
 
   return (
     <div className="container mx-auto px-4">
-      <div className="grid grid-cols-4 gap-6">
+      {/* Responsive Grid Layout */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {currentProperties.map(property => (
           <div key={property.id} className="flex justify-center">
-            <AcceptCard 
+            <AcceptCard
               images={property.images}
               title={property.title}
               location={property.location}
@@ -75,21 +75,26 @@ const ListAcceptCard = () => {
           </div>
         ))}
       </div>
-      
-      <div className="flex justify-center mt-8">
-        {Array.from({ length: totalPages }, (_, i) => (
-          <button
-            key={i}
-            onClick={() => paginate(i + 1)}
-            className={`mx-2 px-4 py-2 rounded ${
-              currentPage === i + 1 
-                ? 'bg-blue-500 text-white' 
-                : 'bg-gray-200 text-gray-700'
-            }`}
-          >
-            {i + 1}
-          </button>
-        ))}
+
+      {/* Responsive Pagination */}
+      <div className="flex justify-center mt-8 flex-wrap">
+        <button
+          onClick={() => paginate(currentPage - 1)}
+          disabled={currentPage === 1}
+          className="mx-2 px-4 py-2 bg-gray-200 text-gray-700 rounded disabled:opacity-50"
+        >
+          Previous
+        </button>
+        <span className="mx-2 py-2 text-white">
+          Page {currentPage} of {totalPages}
+        </span>
+        <button
+          onClick={() => paginate(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          className="mx-2 px-4 py-2 bg-gray-200 text-gray-700 rounded disabled:opacity-50"
+        >
+          Next
+        </button>
       </div>
     </div>
   );
