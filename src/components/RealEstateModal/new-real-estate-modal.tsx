@@ -88,7 +88,7 @@ export default function NewRealEstateModal() {
     setFormData(prev => ({
       ...prev,
       [name]: name === 'tokenPrice' || name === 'apy'
-        ? Number(value)
+        ? value
         : value
     }));
   };

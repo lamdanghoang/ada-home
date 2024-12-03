@@ -94,17 +94,17 @@ const Header = () => {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-4">
-          <Link href="/marketplace" legacyBehavior>
+          <Link href="/" legacyBehavior>
             <a>Marketplace</a>
           </Link>
-          <Link href="/about" legacyBehavior>
+          <Link href="/" legacyBehavior>
             <a>About</a>
           </Link>
           <Link href="/approve" legacyBehavior>
             <a>Approve</a>
           </Link>
           <Link href="/golden-visa" legacyBehavior>
-            <a>Golden Visa</a>
+            <a>Portfolio</a>
           </Link>
           <a href="#" className="flex items-center space-x-2 border rounded px-2 py-2">
             <span className="material-icons">star</span>
@@ -169,17 +169,17 @@ const Header = () => {
         </div>
 
         <nav className="flex flex-col p-4 space-y-4">
-          <Link href="/marketplace" legacyBehavior>
+          <Link href="/" legacyBehavior>
             <a onClick={closeMobileMenu} className="block py-2 border-b border-gray-700">Marketplace</a>
           </Link>
-          <Link href="/about" legacyBehavior>
+          <Link href="/" legacyBehavior>
             <a onClick={closeMobileMenu} className="block py-2 border-b border-gray-700">About</a>
           </Link>
           <Link href="/approve" legacyBehavior>
             <a onClick={closeMobileMenu} className="block py-2 border-b border-gray-700">Approve</a>
           </Link>
           <Link href="/golden-visa" legacyBehavior>
-            <a onClick={closeMobileMenu} className="block py-2 border-b border-gray-700">Golden Visa</a>
+            <a onClick={closeMobileMenu} className="block py-2 border-b border-gray-700">Porfolio</a>
           </Link>
           <a 
             href="#" 
