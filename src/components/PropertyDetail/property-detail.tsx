@@ -10,6 +10,7 @@ import { FileText } from 'lucide-react'
 import { InvestmentSimulator } from "@/components/InvestmentSimulator/investment-simulator"
 
 export default function PropertyDetails() {
+  const token = 'COP';
   return (
     <div className="max-w-[1400px] mx-auto">
       {/* Banner Image */}
@@ -142,27 +143,27 @@ export default function PropertyDetails() {
                       <TableBody>
                         <TableRow className="hover:bg-muted/50">
                           <TableCell className="font-medium">Cost of property</TableCell>
-                          <TableCell className="text-right">COP 490,000,000.00</TableCell>
+                          <TableCell className="text-right">{token} 490,000,000.00</TableCell>
                         </TableRow>
                         <TableRow className="hover:bg-muted/50">
                           <TableCell className="font-medium">LaProp fee</TableCell>
-                          <TableCell className="text-right">COP 14,700,000.00</TableCell>
+                          <TableCell className="text-right">{token} 14,700,000.00</TableCell>
                         </TableRow>
                         <TableRow className="hover:bg-muted/50">
                           <TableCell className="font-medium">Notary fees</TableCell>
-                          <TableCell className="text-right">COP 9,200,000.00</TableCell>
+                          <TableCell className="text-right">{token} 9,200,000.00</TableCell>
                         </TableRow>
                         <TableRow className="hover:bg-muted/50">
                           <TableCell className="font-medium">Exchange & transactions fees</TableCell>
-                          <TableCell className="text-right">COP 1,049,400.00</TableCell>
+                          <TableCell className="text-right">{token} 1,049,400.00</TableCell>
                         </TableRow>
                         <TableRow className="hover:bg-muted/50">
                           <TableCell className="font-medium">Maintanance reserve</TableCell>
-                          <TableCell className="text-right">COP 0.00</TableCell>
+                          <TableCell className="text-right">{token} 0.00</TableCell>
                         </TableRow>
                         <TableRow className="hover:bg-muted/50 font-semibold">
                           <TableCell>Total funds needed</TableCell>
-                          <TableCell className="text-right">COP 514,500,000.00</TableCell>
+                          <TableCell className="text-right">{token} 514,500,000.00</TableCell>
                         </TableRow>
                       </TableBody>
                     </Table>
@@ -175,23 +176,23 @@ export default function PropertyDetails() {
                       <TableBody>
                         <TableRow className="hover:bg-muted/50">
                           <TableCell className="font-medium">Gross rent per month</TableCell>
-                          <TableCell className="text-right">COP 2,200,000.00</TableCell>
+                          <TableCell className="text-right">{token} 2,200,000.00</TableCell>
                         </TableRow>
                         <TableRow className="hover:bg-muted/50">
                           <TableCell className="font-medium">Gross rent per year</TableCell>
-                          <TableCell className="text-right">COP 26,400,000.00</TableCell>
+                          <TableCell className="text-right">{token} 26,400,000.00</TableCell>
                         </TableRow>
                         <TableRow className="hover:bg-muted/50">
                           <TableCell className="font-medium">Monthly costs</TableCell>
-                          <TableCell className="text-right">COP 220,000.00</TableCell>
+                          <TableCell className="text-right">{token} 220,000.00</TableCell>
                         </TableRow>
                         <TableRow className="hover:bg-muted/50">
                           <TableCell className="font-medium">Net rent per month</TableCell>
-                          <TableCell className="text-right">COP 1,900,800.00</TableCell>
+                          <TableCell className="text-right">{token} 1,900,800.00</TableCell>
                         </TableRow>
                         <TableRow className="hover:bg-muted/50">
                           <TableCell className="font-medium">Net rent per year</TableCell>
-                          <TableCell className="text-right">COP 22,809,600.00</TableCell>
+                          <TableCell className="text-right">{token} 22,809,600.00</TableCell>
                         </TableRow>
                       </TableBody>
                     </Table>
@@ -204,19 +205,19 @@ export default function PropertyDetails() {
                       <TableBody>
                         <TableRow className="hover:bg-muted/50">
                           <TableCell className="font-medium">Insurance</TableCell>
-                          <TableCell className="text-right">COP 0.00</TableCell>
+                          <TableCell className="text-right">{token} 0.00</TableCell>
                         </TableRow>
                         <TableRow className="hover:bg-muted/50">
                           <TableCell className="font-medium">LaProp rent commission</TableCell>
-                          <TableCell className="text-right">COP 220,000.00</TableCell>
+                          <TableCell className="text-right">{token} 220,000.00</TableCell>
                         </TableRow>
                         <TableRow className="hover:bg-muted/50">
                           <TableCell className="font-medium">Property taxes</TableCell>
-                          <TableCell className="text-right">COP 0.00</TableCell>
+                          <TableCell className="text-right">{token} 0.00</TableCell>
                         </TableRow>
                         <TableRow className="hover:bg-muted/50">
                           <TableCell className="font-medium">Property management</TableCell>
-                          <TableCell className="text-right">COP 0.00</TableCell>
+                          <TableCell className="text-right">{token} 0.00</TableCell>
                         </TableRow>
                       </TableBody>
                     </Table>
@@ -252,7 +253,7 @@ export default function PropertyDetails() {
               <div className="space-y-4">
                 <div className="flex justify-between items-center">
                   <span className="text-sm">Starting from</span>
-                  <span className="font-semibold">1COP</span>
+                  <span className="font-semibold">1{token}</span>
                 </div>
                 <Progress value={33} className="h-2 bg-[#E5F4D4]" />
                 <div className="text-xs text-right">
@@ -288,10 +289,23 @@ export default function PropertyDetails() {
                 <Button className="w-full bg-black text-white h-12 hover:bg-black/90">
                   PARTICIPATE →
                 </Button>
+
+                <div className="flex space-x-2">
+                  <Button className="w-full bg-black text-white h-12 hover:bg-black/90">
+                    BUY
+                  </Button>
+                  <Button className="w-full bg-black text-white h-12 hover:bg-black/90">
+                    SELL
+                  </Button>
+                </div>
+
+                <Button className="w-full bg-black text-white h-12 hover:bg-black/90">
+                  CLAIM
+                </Button>
               </div>
 
               <div className="flex justify-between items-center pt-4 border-t">
-                <span>Total(COP)</span>
+                <span>Total({token})</span>
                 <span className="font-semibold">$1</span>
               </div>
             </div>

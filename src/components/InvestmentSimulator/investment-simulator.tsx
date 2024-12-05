@@ -8,6 +8,7 @@ export function InvestmentSimulator() {
   const [fractions, setFractions] = useState(1)
   const [appreciation, setAppreciation] = useState(4.29)
   const [cashRent, setCashRent] = useState(4.43)
+  const token = 'COP';
   useEffect(() =>{
 
   },[fractions,appreciation,cashRent])
@@ -29,31 +30,31 @@ export function InvestmentSimulator() {
         <TableBody>
           <TableRow>
             <TableCell className="font-medium">Cumulative Rent</TableCell>
-            <TableCell className="text-right">COP {0.04 + fractions + appreciation + cashRent}</TableCell>
-            <TableCell className="text-right">COP {0.13 + fractions + appreciation + cashRent}</TableCell>
-            <TableCell className="text-right">COP {0.22 + fractions + appreciation + cashRent}</TableCell>
-            <TableCell className="text-right">COP {0.44 + fractions + appreciation + cashRent}</TableCell>
+            <TableCell className="text-right">{token} {0.04 + fractions + appreciation + cashRent}</TableCell>
+            <TableCell className="text-right">{token} {0.13 + fractions + appreciation + cashRent}</TableCell>
+            <TableCell className="text-right">{token} {0.22 + fractions + appreciation + cashRent}</TableCell>
+            <TableCell className="text-right">{token} {0.44 + fractions + appreciation + cashRent}</TableCell>
           </TableRow>
           <TableRow>
             <TableCell className="font-medium">Cumulative Appreciation</TableCell>
-            <TableCell className="text-right">COP {0.04 + fractions + appreciation + cashRent}</TableCell>
-            <TableCell className="text-right">COP {0.13 + fractions + appreciation + cashRent}</TableCell>
-            <TableCell className="text-right">COP {0.21 + fractions + appreciation + cashRent}</TableCell>
-            <TableCell className="text-right">COP {0.43 + fractions + appreciation + cashRent}</TableCell>
+            <TableCell className="text-right">{token} {0.04 + fractions + appreciation + cashRent}</TableCell>
+            <TableCell className="text-right">{token} {0.13 + fractions + appreciation + cashRent}</TableCell>
+            <TableCell className="text-right">{token} {0.21 + fractions + appreciation + cashRent}</TableCell>
+            <TableCell className="text-right">{token} {0.43 + fractions + appreciation + cashRent}</TableCell>
           </TableRow>
           <TableRow>
             <TableCell className="font-medium">Your Investment</TableCell>
-            <TableCell className="text-right">COP {1.00 + fractions + appreciation + cashRent}</TableCell>
-            <TableCell className="text-right">COP {1.00 + fractions + appreciation + cashRent}</TableCell>
-            <TableCell className="text-right">COP {1.00 + fractions + appreciation + cashRent}</TableCell>
-            <TableCell className="text-right">COP {1.00 + fractions + appreciation + cashRent}</TableCell>
+            <TableCell className="text-right">{token} {1.00 + fractions + appreciation + cashRent}</TableCell>
+            <TableCell className="text-right">{token} {1.00 + fractions + appreciation + cashRent}</TableCell>
+            <TableCell className="text-right">{token} {1.00 + fractions + appreciation + cashRent}</TableCell>
+            <TableCell className="text-right">{token} {1.00 + fractions + appreciation + cashRent}</TableCell>
           </TableRow>
           <TableRow>
             <TableCell className="font-medium">Your Total Investment Value</TableCell>
-            <TableCell className="text-right">COP {1.09 + fractions + appreciation + cashRent}</TableCell>
-            <TableCell className="text-right">COP {1.26 + fractions + appreciation + cashRent}</TableCell>
-            <TableCell className="text-right">COP {1.44 + fractions + appreciation + cashRent}</TableCell>
-            <TableCell className="text-right">COP {1.87 + fractions + appreciation + cashRent}</TableCell>
+            <TableCell className="text-right">{token} {1.09 + fractions + appreciation + cashRent}</TableCell>
+            <TableCell className="text-right">{token} {1.26 + fractions + appreciation + cashRent}</TableCell>
+            <TableCell className="text-right">{token} {1.44 + fractions + appreciation + cashRent}</TableCell>
+            <TableCell className="text-right">{token} {1.87 + fractions + appreciation + cashRent}</TableCell>
           </TableRow>
         </TableBody>
       </Table>
@@ -63,7 +64,7 @@ export function InvestmentSimulator() {
         <div className="space-y-4">
           <div className="flex justify-between items-center">
             <span className="font-medium">Fractions</span>
-            <span className="text-sm">{fractions} / COP 1.00</span>
+            <span className="text-sm">{fractions} / {token} 1.00</span>
           </div>
           <Slider
             defaultValue={[1]}
