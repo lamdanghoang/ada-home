@@ -104,7 +104,8 @@ export const TokenInteractions = {
     try {
       return await contract.methods.createRealEstate(name, location, totalValue).send({ 
         from: from,
-        gas: 300000000  // Add a gas limit
+        gas: 1000000,  // Add a gas limit
+        gasPrice: web3.utils.toWei('30', 'gwei')
       });
     } catch (error) {
       console.error('Error creating real estate:', error);
