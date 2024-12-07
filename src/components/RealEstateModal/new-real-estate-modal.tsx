@@ -13,6 +13,7 @@ import { Loader2Icon, XIcon, ImagePlusIcon } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { TokenInteractions } from '@/utils/contract';
 
 interface RealEstateData {
   images: string[];
@@ -83,6 +84,14 @@ export default function NewRealEstateModal() {
     netRentPerYear: 0,
   });
 
+  const [account,setAccount] = useState('');
+  useEffect(() =>{
+    let wallet = sessionStorage.getItem('address') as string;
+    console.log(wallet);
+    setAccount(wallet);
+  },[])
+
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
@@ -137,7 +146,29 @@ export default function NewRealEstateModal() {
 
     try {
       // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // await new Promise(resolve => setTimeout(resolve, 2000));
+      try {
+        // Ensure account is defined and is a valid address
+        if (!account) {
+          throw new Error('No account connected');
+        }
+      
+        const txReceipt = await TokenInteractions.createRealEstate(
+          account,
+          formData.title,
+          formData.location,
+          formData.tokenPrice
+        );
+        console.log('Transaction receipt:', txReceipt);
+      } catch (error:any) {
+        console.log(error);
+        toast({
+          title: "Error creating",
+          description: error,
+        });
+        setIsLoading(false);
+        return;
+      }
 
       // TODO: Replace with actual API submission
       console.log('Submitted Real Estate Data:', formData);

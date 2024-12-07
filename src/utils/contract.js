@@ -92,14 +92,22 @@ export const TokenInteractions = {
       throw error;
     }
   },
-
   async createRealEstate(from, name, location, totalValue) {
+    const web3 = getWeb3();
     const contract = getRwaTokenContract();
-    
-    try {      
-      return await contract.methods.createRealEstate(name, location, totalValue).send({ from });
+  
+    // Validate the from address
+    if (!from || !web3.utils.isAddress(from)) {
+      throw new Error('Invalid Ethereum address');
+    }
+  
+    try {
+      return await contract.methods.createRealEstate(name, location, totalValue).send({ 
+        from: from,
+        gas: 300000000  // Add a gas limit
+      });
     } catch (error) {
-      console.error('Error buying tokens:', error);
+      console.error('Error creating real estate:', error);
       throw error;
     }
   }
