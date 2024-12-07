@@ -91,5 +91,16 @@ export const TokenInteractions = {
       console.error('Error buying tokens:', error);
       throw error;
     }
+  },
+
+  async createRealEstate(from, name, location, totalValue) {
+    const contract = getRwaTokenContract();
+    
+    try {      
+      return await contract.methods.createRealEstate(name, location, totalValue).send({ from });
+    } catch (error) {
+      console.error('Error buying tokens:', error);
+      throw error;
+    }
   }
 };

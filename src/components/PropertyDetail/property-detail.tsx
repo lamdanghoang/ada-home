@@ -23,14 +23,22 @@ export default function PropertyDetails() {
   // Buy tokens handler
   const handleBuyTokens = async () => {  
     try {
-      const txReceipt = await TokenInteractions.buyTokens(
+      // const txReceipt = await TokenInteractions.buyTokens(
+      //   account,
+      //   '0.0001' // Example amount
+      // );
+
+      const txReceipt = await TokenInteractions.createRealEstate(
         account,
-        '0.0001' // Example amount
+        "PN_2411",
+        "HCM",
+        1000000000
       );
 
+
       // Update balance after buying
-      const newBalance = await TokenInteractions.getBalance(account);
-      console.log('New balance:', newBalance);
+      // const newBalance = await TokenInteractions.getBalance(account);
+      console.log('Tx Receipt:', txReceipt);
 
       alert('Tokens purchased successfully!');
       } catch (error) {
