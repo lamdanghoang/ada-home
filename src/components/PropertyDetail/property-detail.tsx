@@ -8,15 +8,42 @@ import { Progress } from "@/components/ui/progress"
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table"
 import { FileText } from 'lucide-react'
 import { InvestmentSimulator } from "@/components/InvestmentSimulator/investment-simulator"
+import { TokenInteractions } from '@/utils/contract';
+import { useEffect, useState } from "react"
 
 export default function PropertyDetails() {
   const token = 'COP';
+  const [account,setAccount] = useState('');
+
+  useEffect(() =>{
+    let wallet = sessionStorage.getItem('address') as string;
+    console.log(wallet);
+    setAccount(wallet);
+  },[])
+  // Buy tokens handler
+  const handleBuyTokens = async () => {  
+    try {
+      const txReceipt = await TokenInteractions.buyTokens(
+        account,
+        '0.0001' // Example amount
+      );
+
+      // Update balance after buying
+      const newBalance = await TokenInteractions.getBalance(account);
+      console.log('New balance:', newBalance);
+
+      alert('Tokens purchased successfully!');
+      } catch (error) {
+        console.error('Token purchase failed:', error);
+      }
+    };
+  
   return (
     <div className="max-w-[1400px] mx-auto">
       {/* Banner Image */}
       <div className="relative w-full h-[280px] mb-6">
         <Image
-          src="/house1.jpg"
+          src="/real1.png"
           alt="Hashtag98 Hotel"
           fill
           className="object-cover rounded-lg"
@@ -286,7 +313,7 @@ export default function PropertyDetails() {
                     className="bg-black text-white h-12"
                   />
                 </div>
-                <Button className="w-full bg-black text-white h-12 hover:bg-black/90">
+                <Button className="w-full bg-black text-white h-12 hover:bg-black/90" onClick={()=>handleBuyTokens()}>
                   PARTICIPATE →
                 </Button>
 
