@@ -9,38 +9,83 @@ import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table"
 import { FileText } from 'lucide-react'
 import { InvestmentSimulator } from "@/components/InvestmentSimulator/investment-simulator"
 import { TokenInteractions } from '@/utils/contract';
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
+import { TokenParticipationModal } from './TokenCreate';
 
 export default function PropertyDetails() {
   const token = 'COP';
-  const [account,setAccount] = useState('');
+  const [account, setAccount] = useState('');
+  const propertyID = 1234;
 
-  useEffect(() =>{
+  useEffect(() => {
     let wallet = sessionStorage.getItem('address') as string;
     console.log(wallet);
     setAccount(wallet);
-  },[])
+  }, [])
   // Buy tokens handler
-  const handleBuyTokens = async () => {  
+  const handleBuyTokens = async () => {
     try {
-      const txReceipt = await TokenInteractions.buyTokens(
+      const txReceipt = await TokenInteractions.transfer(
         account,
-        '0.0001' // Example amount
+        '0x5cd31958780C1fD6C2325aB7CD75112cDbae10E6',
+        '1000000'
       );
 
       console.log(txReceipt);
 
       // Update balance after buying
-      const newBalance = await TokenInteractions.getBalance(account);
-      console.log('New balance:', newBalance);
+      // const newBalance = await TokenInteractions.getBalance(account);
+      // console.log('New balance:', newBalance);
 
-      alert('Tokens purchased successfully!');
-    } 
+      //alert('Tokens purchased successfully!');
+    }
     catch (error) {
       console.error('Token purchase failed:', error);
     }
   };
-  
+
+  const handleSellTokens = async () => {
+    try {
+      const txReceipt = await TokenInteractions.transfer(
+        account,
+        '0x5cd31958780C1fD6C2325aB7CD75112cDbae10E6',
+        '1000000'
+      );
+
+      console.log(txReceipt);
+
+      // Update balance after buying
+      // const newBalance = await TokenInteractions.getBalance(account);
+      // console.log('New balance:', newBalance);
+
+      //alert('Tokens purchased successfully!');
+    }
+    catch (error) {
+      console.error('Token purchase failed:', error);
+    }
+  };
+
+  const handleTokenParticipation = async (details: {
+    id: number, 
+    tokenName: string, 
+    tokenSymbol: string, 
+    totalSupply: string
+  }) => {
+    try {
+      // Here you would typically interact with a smart contract 
+      // or backend to create or register the token
+      //console.log('Token Details Submitted:', details);
+      
+      // Example: Call a method to create token
+      // await TokenInteractions.createToken(details);
+
+      //alert('Token details submitted successfully!');
+    } catch (error) {
+      //console.error('Token submission failed:', error);
+      //alert('Failed to submit token details');
+    }
+  };
+
   return (
     <div className="max-w-[1400px] mx-auto">
       {/* Banner Image */}
@@ -316,15 +361,16 @@ export default function PropertyDetails() {
                     className="bg-black text-white h-12"
                   />
                 </div>
-                <Button className="w-full bg-black text-white h-12 hover:bg-black/90" onClick={()=>handleBuyTokens()}>
-                  PARTICIPATE →
-                </Button>
+                <TokenParticipationModal
+                  onSubmit={handleTokenParticipation}
+                  token={propertyID}
+                />
 
                 <div className="flex space-x-2">
-                  <Button className="w-full bg-black text-white h-12 hover:bg-black/90">
+                  <Button className="w-full bg-black text-white h-12 hover:bg-black/90" onClick={()=>handleBuyTokens()}>
                     BUY
                   </Button>
-                  <Button className="w-full bg-black text-white h-12 hover:bg-black/90">
+                  <Button className="w-full bg-black text-white h-12 hover:bg-black/90" onClick={()=>handleSellTokens()}>
                     SELL
                   </Button>
                 </div>

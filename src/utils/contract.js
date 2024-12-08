@@ -47,8 +47,7 @@ export const TokenInteractions = {
       const decimals = await contract.methods.decimals().call();
       return web3.utils.fromWei(balance, 'ether');
     } catch (error) {
-      console.error('Error fetching balance:', error);
-      throw error;
+      console.log('Error fetching balance:', error);
     }
   },
   
@@ -61,16 +60,17 @@ export const TokenInteractions = {
    */
   async transfer(from, to, amount) {
     const contract = getRwaTokenContract();
-    
-    try {
-      const web3 = getWeb3();
-      const parsedAmount = web3.utils.toWei(amount, 'ether');
-      
-      return await contract.methods.transfer(to, parsedAmount).send({ from });
-    } catch (error) {
-      console.error('Error transferring tokens:', error);
-      throw error;
+    const web3 = getWeb3();
+
+    const value = web3.utils.toWei(amount, "ether");
+    try{
+      await contract.methods.transfer(to, value.toString()).send({
+        from: from,
+      });
     }
+    catch (error) {
+      console.log('Error transferring tokens:', error);
+    } 
   },
   
   /**
@@ -88,10 +88,29 @@ export const TokenInteractions = {
       
       return await contract.methods.buyTokens(from, parsedAmount).send({ from });
     } catch (error) {
-      console.error('Error buying tokens:', error);
-      throw error;
+      console.log('Error buying tokens:', error);
     }
   },
+    /**
+   * Sell tokens
+   * @param {string} from - Buyer address
+   * @param {string} to - Receipt address
+   * @param {string} amount - Amount to buy
+   * @returns {Promise<Object>} Transaction receipt
+   */
+    async sellTokens(from,to, amount) {
+      const contract = getRwaTokenContract();
+      
+      try {
+        const web3 = getWeb3();
+        const parsedAmount = web3.utils.toWei(amount, 'ether');
+        
+        return await contract.methods.buyTokens(from, parsedAmount).send({ to });
+      } catch (error) {
+        console.log('Error buying tokens:', error);
+      }
+    },
+
   async createRealEstate(from, name, location, totalValue) {
     const web3 = getWeb3();
     const contract = getRwaTokenContract();
@@ -108,8 +127,29 @@ export const TokenInteractions = {
         gasPrice: web3.utils.toWei('30', 'gwei')
       });
     } catch (error) {
-      console.error('Error creating real estate:', error);
-      throw error;
+      console.log('Error creating real estate:', error);
+      //throw error;
+    }
+  },
+
+  async tokenizeRealEstate(from, id, tokenName, tokenSymbol,totalSupply) {
+    const web3 = getWeb3();
+    const contract = getRwaTokenContract();
+  
+    // Validate the from address
+    if (!from || !web3.utils.isAddress(from)) {
+      console.log('Invalid Ethereum address');
+    }
+  
+    try {
+      return await contract.methods.tokenizeRealEstate(id, tokenName, tokenSymbol,totalSupply).send({ 
+        from: from,
+        gas: 1000000,  // Add a gas limit
+        gasPrice: web3.utils.toWei('30', 'gwei')
+      });
+    } catch (error) {
+      console.log('Error creating real estate:', error);
+      //throw error;
     }
   }
 };
