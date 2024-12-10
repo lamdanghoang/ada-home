@@ -79,14 +79,18 @@ export const TokenInteractions = {
    * @param {string} amount - Amount to buy
    * @returns {Promise<Object>} Transaction receipt
    */
-  async buyTokens(from, amount) {
+  async buyTokens(from, real_estate_id) {
     const contract = getRwaTokenContract();
     
     try {
       const web3 = getWeb3();
-      const parsedAmount = web3.utils.toWei(amount, 'ether');
       
-      return await contract.methods.buyTokens(from, parsedAmount).send({ from });
+      return await contract.methods.distributeYield(real_estate_id).send({ 
+        from,
+        value: web3.utils.toWei('0.001', 'ether'),
+        gas: 3000000,  // Add a gas limit
+        gasPrice: web3.utils.toWei('30', 'gwei')
+      });
     } catch (error) {
       console.log('Error buying tokens:', error);
     }
@@ -143,6 +147,27 @@ export const TokenInteractions = {
   
     try {
       return await contract.methods.tokenizeRealEstate(id, tokenName, tokenSymbol,totalSupply).send({ 
+        from: from,
+        gas: 1000000,  // Add a gas limit
+        gasPrice: web3.utils.toWei('30', 'gwei')
+      });
+    } catch (error) {
+      console.log('Error creating real estate:', error);
+      //throw error;
+    }
+  },
+
+  async claimReward(from, id) {
+    const web3 = getWeb3();
+    const contract = getRwaTokenContract();
+  
+    // Validate the from address
+    if (!from || !web3.utils.isAddress(from)) {
+      console.log('Invalid Ethereum address');
+    }
+  
+    try {
+      return await contract.methods.claimYield(id).send({ 
         from: from,
         gas: 1000000,  // Add a gas limit
         gasPrice: web3.utils.toWei('30', 'gwei')

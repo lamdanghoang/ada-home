@@ -25,19 +25,14 @@ export default function PropertyDetails() {
   // Buy tokens handler
   const handleBuyTokens = async () => {
     try {
-      const txReceipt = await TokenInteractions.transfer(
+      const txReceipt = await TokenInteractions.buyTokens(
         account,
-        '0x5cd31958780C1fD6C2325aB7CD75112cDbae10E6',
-        '1000000'
+        1,
       );
+      console.log('Transaction receipt:', txReceipt);
 
-      console.log(txReceipt);
-
-      // Update balance after buying
-      // const newBalance = await TokenInteractions.getBalance(account);
-      // console.log('New balance:', newBalance);
-
-      //alert('Tokens purchased successfully!');
+      // Call onSubmit if needed
+      alert(`Buy Successfully: ${txReceipt}`)
     }
     catch (error) {
       console.error('Token purchase failed:', error);
@@ -64,6 +59,22 @@ export default function PropertyDetails() {
       console.error('Token purchase failed:', error);
     }
   };
+
+  const handleClaim = async () =>{
+    try {
+      const txReceipt = await TokenInteractions.claimReward(
+        account,
+        1,
+      );
+      console.log('Transaction receipt:', txReceipt);
+
+      // Call onSubmit if needed
+      alert(`Buy Successfully: ${txReceipt}`)
+    }
+    catch (error) {
+      console.error('Token purchase failed:', error);
+    }
+  }
 
   const handleTokenParticipation = async (details: {
     id: number, 
@@ -375,7 +386,7 @@ export default function PropertyDetails() {
                   </Button>
                 </div>
 
-                <Button className="w-full bg-black text-white h-12 hover:bg-black/90">
+                <Button className="w-full bg-black text-white h-12 hover:bg-black/90" onClick={()=>handleClaim()}>
                   CLAIM
                 </Button>
               </div>

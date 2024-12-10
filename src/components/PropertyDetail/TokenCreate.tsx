@@ -113,6 +113,20 @@ export function TokenParticipationModal({
               Token Name
             </Label>
             <Input
+              id="id"
+              name="id"
+              placeholder="Enter RealEstate ID"
+              className="col-span-3"
+              value={tokenDetails.id}
+              onChange={handleInputChange}
+              disabled={isLoading}
+            />
+          </div>
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="tokenName" className="text-right">
+              Token Name
+            </Label>
+            <Input
               id="tokenName"
               name="tokenName"
               placeholder="Enter Token Name"
