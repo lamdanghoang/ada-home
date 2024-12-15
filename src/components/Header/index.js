@@ -1,43 +1,20 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
-import web3 from "@/utils/web3";
-
+import { useWallet } from '@meshsdk/react';
+import { CardanoWallet } from '@meshsdk/react';
+import './style.css'
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  const [account, setAccount] = useState(null);
-  const [balance, setBalance] = useState(null);
-
-  const connectWallet = async () => {
-    if (typeof window.ethereum !== "undefined") {
-      try {
-        // Request wallet connection
-        const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
-        setAccount(accounts[0]);
-        setTimeout(() =>{
-          console.log(accounts[0]);
-          sessionStorage.setItem('address', accounts[0]);
-        },100)
-        
-
-        // Get wallet balance
-        const balance = await web3.eth.getBalance(accounts[0]);
-        setBalance(web3.utils.fromWei(balance, "ether"));
-        console.log(balance);
-      } catch (error) {
-        console.error("Error connecting wallet:", error);
-      }
-    } else {
-      alert("MetaMask is not installed. Please install it to connect your wallet.");
-    }
-  };
-
+  const [account, setAccount] = useState(false);
+  const { connected, wallet } = useWallet();
 
   const disconnectWallet = () => {
-    sessionStorage.removeItem('walletAccount');
-    setAccount('');
-    setBalance('0');
+    // setIsWalletConnected(false);
+    // setWalletAddress('');
+    localStorage.removeItem('walletConnected');
+    // disconnect();
   };
+
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -108,12 +85,10 @@ const Header = () => {
               {account.substring(0, 5) + "..." + account.substring(account.length - 5, account.length)}
             </button>
           ) : (
-            <button
-              className="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded"
-              onClick={connectWallet}
-            >
-              Connect wallet
-            </button>
+            <div className="text-black">
+              <CardanoWallet isDark={false}/>
+            </div>
+            // <CardanoWalletList />
           )}
         </nav>
       </div>
@@ -189,15 +164,21 @@ const Header = () => {
               {account.substring(0, 5) + "..." + account.substring(account.length - 5, account.length)}
             </button>
           ) : (
-            <button
-              className="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded mt-4"
-              onClick={() => {
-                connectWallet();
-                closeMobileMenu();
-              }}
-            >
-              Connect wallet
-            </button>
+            <div className="custom-wallet-button">
+              <CardanoWallet
+                isDark={false}
+                style={{
+                  backgroundColor: '#6D28D9', // Tailwind's purple-600
+                  color: 'white',
+                  padding: '8px 16px',
+                  borderRadius: '0.25rem',
+                  border: 'none',
+                }}
+                className="custom-wallet-connect hover:bg-purple-700"
+              />
+            </div>
+
+            // <CardanoWalletList />
           )}
 
         </nav>
